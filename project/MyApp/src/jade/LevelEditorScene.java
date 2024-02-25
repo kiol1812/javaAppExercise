@@ -1,5 +1,7 @@
 package jade;
 
+impoort java.awt.event.KeyEvent;
+
 public class LevelEditorScene extends Scene {
     public LevelEditorScene(){
         System.out.println("inside level editor scene.");
@@ -11,7 +13,7 @@ public class LevelEditorScene extends Scene {
     @Override
     public void updata(float dt) {
         // System.out.println(""+(1.0f/dt)+"FPS");
-        if(!changeScene&&KeyListener.isKeyPressed(32)){ //KeyEvent.VK_SPACE
+        if(!changeScene&&KeyListener.isKeyPressed(KeyEvent.VK_SPACE)){
             changeScene = true;
         }
         if(changeScene && timeToChangeScene>0){
