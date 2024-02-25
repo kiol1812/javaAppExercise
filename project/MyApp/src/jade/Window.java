@@ -34,13 +34,15 @@ public class Window {
         r=1.0f;g=1.0f;b=1.0f;a=1.0f;
     }
 
-    public static void changeScene(int newScene){
+    public void changeScene(int newScene){//static
         switch (newScene) {
             case 0:
                 currentScene = new LevelEditorScene();
+                currentScene.init();
                 break;
-            case 1:
+                case 1:
                 currentScene = new LevelScene();
+                currentScene.init();
                 break;
             default:
                 assert false:"Unkown scenr '"+newScene+"'";
