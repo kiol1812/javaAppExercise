@@ -1,3 +1,4 @@
+package eventDemo;
 import javax.swing.*;
 import java.awt.*;
 

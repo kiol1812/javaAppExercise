@@ -1,11 +1,12 @@
+package eventDemo;
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-public class mouseEventEx extends JFrame implements MouseListener {
+public class mouseEventDemo extends JFrame implements MouseListener {
     JLabel label;
-    public mouseEventEx(){
+    public mouseEventDemo(){
         super("mouse event demo");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(null);
@@ -24,7 +25,7 @@ public class mouseEventEx extends JFrame implements MouseListener {
         label.setLocation(e.getX(), e.getY());
     }
     public static void main(String args[]){
-        mouseEventEx frame = new mouseEventEx();
+        mouseEventDemo frame = new mouseEventDemo();
         frame.setVisible(true);
     }
     public void mousePressed(MouseEvent e) {}
