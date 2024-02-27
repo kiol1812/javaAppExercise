@@ -40,7 +40,7 @@ public class Window {
                 currentScene = new LevelEditorScene();
                 currentScene.init();
                 break;
-                case 1:
+            case 1:
                 currentScene = new LevelScene();
                 currentScene.init();
                 break;
