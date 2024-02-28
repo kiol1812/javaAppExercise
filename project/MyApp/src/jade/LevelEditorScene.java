@@ -14,11 +14,14 @@ import static org.lwjgl.opengl.GL15.GL_STATIC_DRAW;
 import static org.lwjgl.opengl.GL15.glBindBuffer;
 import static org.lwjgl.opengl.GL15.glBufferData;
 import static org.lwjgl.opengl.GL15.glGenBuffers;
+import static org.lwjgl.opengl.GL13.GL_TEXTURE0;
+import static org.lwjgl.opengl.GL13.glActiveTexture;
 
 import org.joml.Vector2f;
 import org.lwjgl.BufferUtils;
 
 import renderer.Shader;
+import renderer.Texture;
 import util.Time;
 
 import java.nio.*;
@@ -27,11 +30,11 @@ import static org.lwjgl.opengl.GL30.glBindVertexArray;;
 
 public class LevelEditorScene extends Scene {
     private float[] vertexArray = {
-        //position, color
-        100.5f,   0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, //bottom right 0
-        0.5f,   100.5f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, //top left     1
-        100.5f, 100.5f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f, //top right    2
-        0.5f,     0.5f, 0.0f, 1.0f, 1.0f, 0.0f, 1.0f, //botton left  3
+        //position,           color,                   UV coordinates
+        100.5f,   0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f,  1, 1, //bottom right 0
+        0.5f,   100.5f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f,  0, 0, //top left     1
+        100.5f, 100.5f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f,  1, 0, //top right    2
+        0.5f,     0.5f, 0.0f, 1.0f, 1.0f, 0.0f, 1.0f,  0, 1, //botton left  3
     };
     private int[] elementArray = {//must counter-clockwise order
         2, 1, 0, //top   right triangle
@@ -43,12 +46,14 @@ public class LevelEditorScene extends Scene {
     }
     
     private Shader defaultShader;
+    private Texture testTexture;
 
     @Override
     public void init(){
         this.camera = new Camera(new Vector2f());
         defaultShader = new Shader("assets/shaders/default.glsl");
         defaultShader.compile();
+        this.testTexture = new Texture("assets/images/character.png");
 
         vaoID = glGenVertexArrays();
         glBindVertexArray(vaoID);
@@ -67,18 +72,25 @@ public class LevelEditorScene extends Scene {
 
         int positionSize = 3; //xyx
         int colorSize = 4;   //rgba
-        int floatSizeBytes = 4;
-        int vertexSizeBytes= (positionSize+colorSize)*floatSizeBytes;
+        int uvSize = 2;
+        int vertexSizeBytes = (positionSize+colorSize+uvSize)*Float.BYTES;
         glVertexAttribPointer(0, positionSize, GL_FLOAT, false, vertexSizeBytes, 0);
         glEnableVertexAttribArray(0); // index:0 => glsl file> location 0: pos
-        glVertexAttribPointer(1, colorSize, GL_FLOAT, false, vertexSizeBytes, positionSize*floatSizeBytes);
+        glVertexAttribPointer(1, colorSize, GL_FLOAT, false, vertexSizeBytes, positionSize*Float.BYTES);
         glEnableVertexAttribArray(1); // index:1 => glsl file> location 1: color
+        glVertexAttribPointer(2, uvSize, GL_FLOAT, false, vertexSizeBytes, (positionSize+colorSize)*Float.BYTES);
+        glEnableVertexAttribArray(2);
     }
 
     @Override
     public void updata(float dt) {
         // camera.position.x-=dt*50.0f;
         defaultShader.use();
+        
+        defaultShader.uploadTexture("TEX_SAMPLER", 0);
+        glActiveTexture(GL_TEXTURE0);
+        testTexture.bind();
+        
         defaultShader.uploadMat4f("uProjection", camera.getProjectionMatrix());
         defaultShader.uploadMat4f("uView", camera.getViewMatrix());
         defaultShader.uploadFloat("uTime", Time.getTime());
