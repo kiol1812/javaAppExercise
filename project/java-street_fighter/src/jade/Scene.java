@@ -1,9 +1,9 @@
-package jade;
+package src.jade;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import renderer.Renderer;
+import src.renderer.Renderer;
 
 public abstract class Scene {
     protected Renderer renderer=new Renderer();

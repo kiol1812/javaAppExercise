@@ -1,9 +1,9 @@
-package jade;
+package src.jade;
 
 import org.joml.Vector2f;
 import org.joml.Vector4f;
 
-import components.SpriteRenderer;
+import src.components.SpriteRenderer;
 
 public class LevelEditorScene extends Scene {
     public LevelEditorScene(){
