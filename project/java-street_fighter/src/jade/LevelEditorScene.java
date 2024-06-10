@@ -1,9 +1,10 @@
 package src.jade;
 
 import org.joml.Vector2f;
-import org.joml.Vector4f;
 
+import src.components.Sprite;
 import src.components.SpriteRenderer;
+import src.components.Spritesheet;
 import src.util.AssetPool;
 
 public class LevelEditorScene extends Scene {
@@ -11,16 +12,21 @@ public class LevelEditorScene extends Scene {
     }
     @Override
     public void init(){
+        loadResource();
         this.camera = new Camera(new Vector2f(-250, 0));
 
-        GameObject obj1 = new GameObject("obj 1", new Transform(new Vector2f(100, 100), new Vector2f(256, 256)));
-        obj1.addComponent(new SpriteRenderer(AssetPool.getTexture("assets/imgs/ryu.jpg")));
-        this.addGameObjectToScene(obj1);
+        Spritesheet sprites = AssetPool.getSpritesheet("assets/imgs/ryu.jpg");
 
-        loadResource();
+        GameObject obj1 = new GameObject("obj 1", new Transform(new Vector2f(100, 100), new Vector2f(256, 256)));
+        obj1.addComponent(new SpriteRenderer(sprites.getSprite(0)));
+        this.addGameObjectToScene(obj1);
     }
     private void loadResource(){
         AssetPool.getShader("assets/shaders/default.glsl");
+
+        AssetPool.addSpritesheet("assets/imgs/ryu.jpg",
+                                new Spritesheet(AssetPool.getTexture("assets/imgs/ryu.jpg"),
+                                                64, 64, 5, 0));
     }
 
     @Override
