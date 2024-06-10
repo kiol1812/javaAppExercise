@@ -22,6 +22,7 @@ import org.lwjgl.BufferUtils;
 
 import static org.lwjgl.stb.STBImage.stbi_image_free;
 import static org.lwjgl.stb.STBImage.stbi_load;
+import static org.lwjgl.stb.STBImage.stbi_set_flip_vertically_on_load;
 
 public class Texture {
     private String filepath;
@@ -39,6 +40,7 @@ public class Texture {
         IntBuffer width = BufferUtils.createIntBuffer(1);
         IntBuffer height = BufferUtils.createIntBuffer(1);
         IntBuffer channels = BufferUtils.createIntBuffer(1);
+        stbi_set_flip_vertically_on_load(true);
         ByteBuffer img = stbi_load(filepath, width, height, channels, 0);
         if(img!=null){
             if(channels.get(0)==3){

@@ -4,29 +4,23 @@ import org.joml.Vector2f;
 import org.joml.Vector4f;
 
 import src.components.SpriteRenderer;
+import src.util.AssetPool;
 
 public class LevelEditorScene extends Scene {
     public LevelEditorScene(){
     }
     @Override
     public void init(){
-        this.camera = new Camera(new Vector2f());
+        this.camera = new Camera(new Vector2f(-250, 0));
 
-        int xOffset = 10, yOffset=10;
+        GameObject obj1 = new GameObject("obj 1", new Transform(new Vector2f(100, 100), new Vector2f(256, 256)));
+        obj1.addComponent(new SpriteRenderer(AssetPool.getTexture("assets/imgs/ryu.jpg")));
+        this.addGameObjectToScene(obj1);
 
-        float totalWidth=(float)(600-xOffset*2), totalHeight=(float)(300-yOffset*2);
-        float sizeX=totalWidth/100.0f, sizeY=totalHeight/100.0f;
-
-        for(int x=0; x<100; x++){
-            for(int y=0; y<100; y++){
-                float xPos=xOffset+(x*sizeX);
-                float yPos=yOffset+(y*sizeY);
-
-                GameObject GO = new GameObject("Obj"+x+""+y, new Transform(new Vector2f(xPos, yPos), new Vector2f(sizeX, sizeY)));
-                GO.addComponent(new SpriteRenderer(new Vector4f(xPos/totalWidth, yPos/totalHeight, 1, 1)));
-                this.addGameObjectToScene(GO);
-            }
-        }
+        loadResource();
+    }
+    private void loadResource(){
+        AssetPool.getShader("assets/shaders/default.glsl");
     }
 
     @Override
