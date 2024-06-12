@@ -94,6 +94,9 @@ public class Window {
         glfwShowWindow(glfwWindow);//make the window visable
         GL.createCapabilities();//important
 
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA); //alpha
+
         instance.changeScene(0);
     }
     public void loop(){

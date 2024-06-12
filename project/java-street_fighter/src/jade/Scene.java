@@ -31,4 +31,5 @@ public abstract class Scene {
     }
     public abstract void updata(float dt);
     public Camera camera(){ return this.camera; }
+    protected abstract GameObject createGameObject(String string);
 }

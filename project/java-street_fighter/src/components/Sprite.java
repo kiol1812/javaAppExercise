@@ -25,4 +25,6 @@ public class Sprite {
 
     public Texture getTexture(){ return this.texture; }
     public Vector2f[] getTexCoords(){ return this.texCoords; }
+
+    public void setTexture(Texture tex){ this.texture=tex; }
 }

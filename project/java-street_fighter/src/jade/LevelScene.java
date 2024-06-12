@@ -11,4 +11,10 @@ public class LevelScene extends Scene {
     @Override
     public void updata(float dt) {
     }
+
+    @Override
+    protected GameObject createGameObject(String string) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'createGameObject'");
+    }
 }
