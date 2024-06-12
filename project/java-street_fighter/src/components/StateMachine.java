@@ -36,6 +36,9 @@ public class StateMachine extends Component {
     private String defaultStatrTitle = "";
 
     public void refreshTextures(){
+        for(AnimationState state:states){
+            state.refreshTextures();
+        }
     }
 
     public void addStateTrigger(String from, String to, String onTrigger){
@@ -92,6 +95,7 @@ public class StateMachine extends Component {
             currentState.update(dt);
             SpriteRenderer sprite = gameObject.getComponent(SpriteRenderer.class);
             if(sprite!=null){
+                // System.out.println(currentState.getCurrentSprite().getTexCoords()[0]);
                 sprite.setSprite(currentState.getCurrentSprite());
             }
         }

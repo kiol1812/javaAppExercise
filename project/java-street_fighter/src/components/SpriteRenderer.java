@@ -51,4 +51,5 @@ public class SpriteRenderer extends Component {
     }
     public boolean isDirty(){ return this.isDirty; }
     public void setClean(){ this.isDirty=false; }
+    public void setTexture(Texture tex){ this.sprite.setTexture(tex); }
 }

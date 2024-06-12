@@ -21,7 +21,9 @@ public class AnimationState {
     }
 
     public void addFrame(Sprite sprite, float frameTime){
-        animeationFrames.add(new Frame(sprite, frameTime));
+        Frame newFrame = new Frame(sprite, frameTime);
+        // newFrame.sprite.setTexture(AssetPool.getTexture(newFrame.sprite.getTexture().getFilepath()));
+        animeationFrames.add(newFrame);
     }
     public void setLoop(boolean doesLoop){
         this.doesLoop=doesLoop;
@@ -33,8 +35,8 @@ public class AnimationState {
                 if(currentSprite!=animeationFrames.size()-1||doesLoop){
                     currentSprite = (currentSprite+1)%animeationFrames.size();
                 }
+                timeTracker = animeationFrames.get(currentSprite).frameTime;
             }
-            timeTracker = animeationFrames.get(currentSprite).frameTime;
         }
     }
     public Sprite getCurrentSprite(){
